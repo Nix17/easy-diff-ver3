@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  easy-diff:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: easy-diff:3.0.0
+    # runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - TZ=Europe/Moscow
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    container_name: easy-diff
+    ports:
+      - "9000:9000"
+    volumes:
+      - /home/$USER/easy-diff-models/:/stablediff/models/stable-diffusion/
