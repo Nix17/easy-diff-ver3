@@ -9,19 +9,28 @@ RUN apt-get update && apt upgrade -y && apt-get install -y \
     bzip2 \
     libgl1-mesa-glx \
     libglib2.0-0 \
-    # nano \
-    # htop \
     python3 \
     python3-pip && \
     rm -rf /var/lib/apt/lists/*
 
+# Установка pip и обновление
 RUN pip3 install --upgrade pip
+
+# Загрузка и установка micromamba
+RUN curl -L https://micro.mamba.pm/api/micromamba/linux-64/latest -o micromamba.tar.bz2 && \
+    tar -xvjf micromamba.tar.bz2 -C /usr/local/bin/ && \
+    rm micromamba.tar.bz2
 
 WORKDIR /stablediff
 
+# Копирование приложения
 COPY ./app/ /stablediff/
+
+# Настройка прав
 RUN chmod +x start.sh
+RUN chmod +x scripts/bootstrap.sh
 
 EXPOSE 9000
 
+# Команда по умолчанию
 CMD ["bash"]
