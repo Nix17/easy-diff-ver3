@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.9"
 services:
   easy-diff:
     build:
@@ -19,5 +19,5 @@ services:
     container_name: easy-diff
     ports:
       - "9000:9000"
-    volumes:
-      - /home/$USER/easy-diff-models/:/stablediff/models/stable-diffusion/
+    # volumes:
+    #   - /home/$USER/easy-diff-models/:/stablediff/models/stable-diffusion/
