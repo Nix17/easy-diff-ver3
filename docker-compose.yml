@@ -1,15 +1,14 @@
-version: "3.9"
 services:
   easy-diff:
     build:
       context: .
       dockerfile: Dockerfile
-    image: easy-diff:3.0.0
-    # runtime: nvidia
+    command: bash -c "./start.sh" 
+    image: easy-diff:3.0.1
     environment:
-    - NVIDIA_VISIBLE_DEVICES=0
-    - NVIDIA_DRIVER_CAPABILITIES=compute,utility
-    - TZ=Europe/Moscow
+      - NVIDIA_VISIBLE_DEVICES=0
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - TZ=Europe/Moscow
     deploy:
       resources:
         reservations:
@@ -20,5 +19,5 @@ services:
     container_name: easy-diff
     ports:
       - "9000:9000"
-    # volumes:
-    #   - /home/$USER/easy-diff-models/:/stablediff/models/stable-diffusion/
+    volumes:
+      - /home/$USER/easy-diff-models/:/stablediff/models/stable-diffusion/
