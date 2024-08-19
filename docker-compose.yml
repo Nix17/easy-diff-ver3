@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: bash -c "./start.sh" 
+    command: bash -c "service nginx start && ./start.sh" 
     image: easy-diff:3.0.1
     environment:
       - NVIDIA_VISIBLE_DEVICES=0
@@ -18,6 +18,6 @@ services:
             capabilities: [gpu]
     container_name: easy-diff
     ports:
-      - "9000:9000"
+      - "8080:8080"
     volumes:
       - /home/$USER/easy-diff-models/:/stablediff/models/stable-diffusion/

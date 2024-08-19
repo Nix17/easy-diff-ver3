@@ -4,6 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive LANG=C TZ=UTC
 
 # Установка необходимых пакетов
 RUN apt-get update && apt upgrade -y && apt-get install -y \
+    nginx \
     curl \
     wget \
     bzip2 \
@@ -30,7 +31,13 @@ COPY ./app/ /stablediff/
 RUN chmod +x start.sh
 RUN chmod +x scripts/bootstrap.sh
 
-EXPOSE 9000
+# Копирование настроек Nginx
+COPY nginx.conf /etc/nginx/sites-available/my_app
+
+# Создание символической ссылки для настроек Nginx
+RUN ln -s /etc/nginx/sites-available/my_app /etc/nginx/sites-enabled/
+
+EXPOSE 8080
 
 # Команда по умолчанию
 CMD ["bash"]
