@@ -20,4 +20,5 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - /home/$USER/easy-diff-models/:/stablediff/models/stable-diffusion/
+      # - /home/$USER/easy-diff-models/:/stablediff/models/stable-diffusion/
+      - ${HOST_PATH_MODELS}:/stablediff/models/
